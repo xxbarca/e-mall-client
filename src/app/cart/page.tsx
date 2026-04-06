@@ -7,7 +7,6 @@ import ShippingForm from "@/components/ShippingForm";
 import PaymentForm from "@/components/PaymentForm";
 import {useState} from "react";
 import Image from "next/image";
-import {it} from "node:test";
 
 const steps = [
   { id: 1, title: "Shopping Cart",},
@@ -115,7 +114,7 @@ const CartPage = () => {
               </div>
             ))
             : activeStep === 2
-              ? <ShippingForm />
+              ? <ShippingForm setShippingForm={setShippingForm}/>
               : activeStep === 3 && shippingForm
                 ? <PaymentForm />
                 : <p className={'text-sm text-gray-500'}>Please fill in the Shipping form to continue</p>
