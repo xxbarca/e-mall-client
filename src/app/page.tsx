@@ -1,11 +1,11 @@
 import Image from "next/image";
 import ProductList from "@/components/ProductList";
 
-const Homepage = async ({
-  searchParams
-                  }: {
+interface Props {
   searchParams: Promise<{category: string}>
-}) => {
+}
+
+const Homepage = async ({searchParams}: Props) => {
   const category = (await searchParams).category;
   return (
     <div className=''>
