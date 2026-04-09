@@ -3,7 +3,8 @@ import {persist, createJSONStorage} from 'zustand/middleware'
 import {CartItemsType, CartItemType} from "@/types";
 
 export type CartStoreStateType = {
-  cart: CartItemsType
+  cart: CartItemsType;
+  hasHydrated: boolean;
 }
 
 export type CartStoreActionType = {
@@ -16,6 +17,7 @@ const useCartStore = create<CartStoreStateType & CartStoreActionType>()(
   persist(
     set => ({
       cart: [],
+      hasHydrated: false,
       addToCart: (product) => set(state => {
         const existingIndex = state.cart.findIndex(item =>
           item.id === product.id &&
@@ -41,7 +43,12 @@ const useCartStore = create<CartStoreStateType & CartStoreActionType>()(
     }),
     {
       name: 'cart',
-      storage: createJSONStorage(() => localStorage)
+      storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => state => {
+        if (state) {
+          state.hasHydrated = true
+        }
+      }
     }
   ),
 )
