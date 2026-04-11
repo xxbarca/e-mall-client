@@ -18,6 +18,14 @@ interface Props {
   searchParams: Promise<{color: string; size: string;}>;
   params: Promise<{id: string}>
 }
+
+export const generateMetadata = async ({params}: {params: {id: string}}) => {
+  return {
+    title: product.name,
+    description: product.description,
+  }
+}
+
 const ProductPage = async ({searchParams, params}: Props) => {
   const {size, color} = await searchParams
   const selectedSize = (size || product.sizes[0] as string)
